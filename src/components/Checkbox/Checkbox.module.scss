@@ -1,0 +1,54 @@
+.label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  column-gap: var(--gap-s);
+  cursor: pointer;
+}
+
+.input {
+  outline: none;
+  appearance: none;
+}
+
+.checkmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--color-gray-700);
+  border-radius: 4px;
+  background-color: var(--color-white);
+  transition: background-color 0.2s border-color 0.2s;
+}
+
+.checkmark:hover {
+  border-color: var(--color-gray-500);
+}
+
+.checkIcon {
+  color: var(--color-white);
+  opacity: 0;
+}
+
+.input:checked + .checkmark {
+  background-color: var(--color-gray-700);
+}
+
+.input:checked + .checkmark:hover {
+  background-color: var(--color-gray-500);
+}
+
+.input:checked + .checkmark .checkIcon {
+  opacity: 1;
+}
+
+.input:focus-visible + .checkmark {
+  outline: 2px solid var(--color-gray-300);
+}
+
+.input:disabled + .checkmark {
+  opacity: 0.5;
+  pointer-events: none;
+}
