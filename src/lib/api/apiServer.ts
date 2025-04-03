@@ -1,4 +1,4 @@
-import { ENDPOINTS, LoginBody } from "@/lib/api";
+import { ENDPOINTS, LoginBody, SignInBody } from "@/lib/api";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -26,6 +26,17 @@ const serverOptionsJSON: RequestInit = {
     "Content-Type": "application/json",
   },
 };
+
+export function serverSignin(body: SignInBody) {
+  const url = `${BASE_URL}${ENDPOINTS.signup.mask}`;
+  const options = {
+    ...serverOptionsJSON,
+    method: "POST",
+    body: JSON.stringify(body),
+  };
+
+  return fetch(url, options);
+}
 
 export function serverLogin(body: LoginBody) {
   const url = `${BASE_URL}${ENDPOINTS.signin.mask}`;
