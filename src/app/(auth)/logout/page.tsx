@@ -1,3 +1,5 @@
-export default function Page() {
-  return <div>Logout</div>;
+import Logout from "@/app/(auth)/logout/components/Logout/Logout";
+
+export default async function LogoutPage() {
+  return <Logout />;
 }

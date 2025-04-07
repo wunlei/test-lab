@@ -48,3 +48,14 @@ export function serverLogin(body: LoginBody) {
   };
   return fetch(url, options);
 }
+
+export function serverLogout() {
+  const url = `${BASE_URL}${ENDPOINTS.logout.mask}`;
+
+  const options = {
+    ...serverOptions,
+    method: "DELETE",
+  };
+
+  return fetch(url, options);
+}
