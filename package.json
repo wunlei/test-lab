@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier --write 'src/**/*.{ts,tsx,css,scss,sass}'"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
@@ -15,7 +16,9 @@
     "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.55.0",
     "sass": "^1.86.3",
+    "server-only": "^0.0.1",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -26,6 +29,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.0",
+    "eslint-config-prettier": "^10.1.2",
+    "prettier": "^3.5.3",
     "typescript": "^5"
   }
 }

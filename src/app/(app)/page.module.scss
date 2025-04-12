@@ -1,0 +1,48 @@
+@use "@/styles/mixins";
+
+.main {
+  height: 100%;
+  padding: 50px;
+  padding-top: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 22px;
+  height: 100%;
+  padding: 1rem;
+  border: var(--border-thin);
+  border-radius: 100px;
+  text-align: center;
+  background-color: var(--color-bg-gray-50);
+}
+
+.svg {
+  max-width: 100%;
+}
+
+.title {
+  font-size: 3.5rem;
+
+  @include mixins.media("lg") {
+    font-size: 2rem;
+  }
+}
+
+.subtitle {
+  font-size: 3rem;
+  color: var(--color-gray-400);
+
+  @include mixins.media("lg") {
+    font-size: 1.5rem;
+  }
+}
+
+.text {
+  @include mixins.media("lg") {
+    font-size: 1rem;
+  }
+}
