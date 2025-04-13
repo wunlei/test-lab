@@ -1,8 +1,9 @@
+import { requestHandler } from "@/lib/api/requestHandler";
+import { serverSignUp } from "@/lib/api/server/auth";
 import { NextRequest } from "next/server";
-import { requestHandler, serverSignin } from "@/lib/api";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
 
-  return requestHandler(() => serverSignin(body));
+  return requestHandler(() => serverSignUp(body));
 }

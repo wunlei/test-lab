@@ -1,34 +1,14 @@
-import { ENDPOINTS, LoginBody, SignInBody } from "@/lib/api";
+import { ENDPOINTS } from "@/lib/api/server/constants";
+import { SignUpBody, LoginBody } from "@/lib/api/server/auth.types";
+import {
+  BASE_URL,
+  serverOptionsJSON,
+  serverOptions,
+} from "@/lib/api/server/config";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-
-if (!BASE_URL) {
-  throw new Error("NEXT_PUBLIC_API_URL is undefined");
-}
-
-const scopeKey = process.env.SCOPE_KEY;
-
-if (!scopeKey) {
-  throw new Error("SCOPE_KEY is undefined");
-}
-
-const serverOptions: RequestInit = {
-  headers: {
-    "scope-key": scopeKey,
-  },
-  credentials: "include",
-};
-
-const serverOptionsJSON: RequestInit = {
-  ...serverOptions,
-  headers: {
-    ...serverOptions.headers,
-    "Content-Type": "application/json",
-  },
-};
-
-export function serverSignin(body: SignInBody) {
+export function serverSignUp(body: SignUpBody): Promise<Response> {
   const url = `${BASE_URL}${ENDPOINTS.signup.mask}`;
+
   const options = {
     ...serverOptionsJSON,
     method: "POST",

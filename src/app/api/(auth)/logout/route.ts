@@ -1,4 +1,5 @@
-import { requestHandler, serverLogout } from "@/lib/api";
+import { requestHandler } from "@/lib/api/requestHandler";
+import { serverLogout } from "@/lib/api/server/auth";
 
 export async function DELETE() {
   const request = await requestHandler(() => serverLogout());
