@@ -9,7 +9,7 @@ import AuthForm from "@/app/(auth)/components/Form";
 import FormFields from "@/app/(auth)/components/FormFields";
 import { FormFieldConfig } from "@/app/(auth)/components/FormFields/types";
 import Typography from "@/components/Typography";
-import { LoginBody, SignInBody } from "@/lib/api";
+import { LoginBody, SignUpBody } from "@/lib/api/server/auth.types";
 import { fetchProxy } from "@/lib/api/fetchProxy";
 import { APP_ROUTES } from "@/lib/app";
 import useFetch from "@/lib/hooks";
@@ -19,7 +19,7 @@ type Inputs = {
   username: string;
   password: string;
   password_confirmation: string;
-  isAdmin: boolean;
+  is_admin: boolean;
 };
 
 const fields: FormFieldConfig<Inputs>[] = [
@@ -46,7 +46,7 @@ const fields: FormFieldConfig<Inputs>[] = [
   },
   {
     fieldType: "checkbox",
-    name: "isAdmin",
+    name: "is_admin",
     title: "Sign up as administrator",
   },
 ];
@@ -68,7 +68,7 @@ export default function SignupForm() {
   );
 
   const signupFetcher = useCallback(
-    (body: SignInBody) => fetchProxy<SignInBody>("/signup").post(body),
+    (body: SignUpBody) => fetchProxy<SignUpBody>("/signup").post(body),
     [],
   );
 

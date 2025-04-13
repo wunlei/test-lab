@@ -16,7 +16,7 @@ export const signupSchema = loginSchema
       .min(6, { message: "Password must be at least 6 characters" })
       .trim(),
     password_confirmation: z.string(requiredError),
-    isAdmin: z.boolean(),
+    is_admin: z.boolean(),
   })
   .refine((data) => data.password === data.password_confirmation, {
     message: "Passwords don't match",

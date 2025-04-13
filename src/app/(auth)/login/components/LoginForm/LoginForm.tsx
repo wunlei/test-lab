@@ -9,7 +9,7 @@ import AuthForm from "@/app/(auth)/components/Form";
 import FormFields from "@/app/(auth)/components/FormFields";
 import { FormFieldConfig } from "@/app/(auth)/components/FormFields/types";
 import Typography from "@/components/Typography";
-import { LoginBody } from "@/lib/api";
+import { LoginBody } from "@/lib/api/server/auth.types";
 import { fetchProxy } from "@/lib/api/fetchProxy";
 import { APP_ROUTES } from "@/lib/app";
 import useFetch from "@/lib/hooks";
