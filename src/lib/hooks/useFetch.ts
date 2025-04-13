@@ -6,23 +6,24 @@ type FetcherFunction<TParams, _TResponse> = (
 
 type Status = "idle" | "loading" | "error" | "success";
 
-interface StatusState {
+interface ResponseState<T> {
   status: Status;
   errorMsg: string | null;
+  data: T | null;
 }
 
 function useFetch<TParams = void, TResponse = unknown>(
   fetcher: FetcherFunction<TParams, TResponse>,
 ) {
-  const [state, setState] = useState<StatusState>({
+  const [state, setState] = useState<ResponseState<TResponse>>({
     status: "idle",
     errorMsg: null,
+    data: null,
   });
-  const [data, setData] = useState<TResponse | null>(null);
 
-  const callApi = useCallback(
+  const callFetcher = useCallback(
     async (params: TParams): Promise<Response | null> => {
-      setState({ status: "loading", errorMsg: null });
+      setState({ status: "loading", errorMsg: null, data: null });
 
       try {
         const response = await fetcher(params);
@@ -37,10 +38,10 @@ function useFetch<TParams = void, TResponse = unknown>(
           setState({
             status: "error",
             errorMsg: errorMessage || "An error occurred. Try again later",
+            data: json,
           });
         } else {
-          setState({ status: "success", errorMsg: null });
-          setData(json);
+          setState({ status: "success", errorMsg: null, data: json });
         }
 
         return response;
@@ -51,6 +52,7 @@ function useFetch<TParams = void, TResponse = unknown>(
             error instanceof Error
               ? error.message
               : "Network error or unexpected failure",
+          data: null,
         });
 
         return null;
@@ -60,13 +62,12 @@ function useFetch<TParams = void, TResponse = unknown>(
   );
 
   const reset = useCallback(() => {
-    setState({ status: "idle", errorMsg: null });
-    setData(null);
+    setState({ status: "idle", errorMsg: null, data: null });
   }, []);
 
   return {
-    call: callApi,
-    data,
+    call: callFetcher,
+    data: state.data,
     status: state.status,
     errorMsg: state.errorMsg,
     isLoading: state.status === "loading",
