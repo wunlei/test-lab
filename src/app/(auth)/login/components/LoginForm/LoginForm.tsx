@@ -9,11 +9,12 @@ import AuthForm from "@/app/(auth)/components/Form";
 import FormFields from "@/app/(auth)/components/FormFields";
 import { FormFieldConfig } from "@/app/(auth)/components/FormFields/types";
 import Typography from "@/components/Typography";
-import { LoginBody } from "@/lib/api/server/auth.types";
 import { fetchProxy } from "@/lib/api/fetchProxy";
+import { LoginBody, LoginResponse } from "@/lib/api/server/auth.types";
 import { APP_ROUTES } from "@/lib/app";
 import useFetch from "@/lib/hooks";
 import { loginSchema } from "@/lib/schemas";
+import { useAuth } from "@/providers/AuthProvider";
 
 type Inputs = {
   username: string;
@@ -39,6 +40,7 @@ const fields: FormFieldConfig<Inputs>[] = [
 
 export default function LoginForm() {
   const router = useRouter();
+  const { setIsAdmin } = useAuth();
 
   const {
     handleSubmit,
@@ -53,7 +55,13 @@ export default function LoginForm() {
     [],
   );
 
-  const { call: login, isLoading, errorMsg, isSuccess } = useFetch(fetcher);
+  const {
+    call: login,
+    isLoading,
+    errorMsg,
+    isSuccess,
+    data,
+  } = useFetch<LoginBody, LoginResponse>(fetcher);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     login(data);
@@ -61,9 +69,12 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (isSuccess) {
+      if (data) {
+        setIsAdmin(data.is_admin);
+      }
       router.push(APP_ROUTES.tests.mask);
     }
-  }, [isSuccess, router]);
+  }, [data, isSuccess, router, setIsAdmin]);
 
   return (
     <AuthForm

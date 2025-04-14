@@ -27,11 +27,7 @@ export type LoginBody = {
 
 type LoginSuccessResponse = SignUpSuccessResponse;
 
-type LoginErrorResponse = {
-  error: string;
-};
-
-export type LoginResponse = LoginErrorResponse | LoginSuccessResponse;
+export type LoginResponse = LoginSuccessResponse;
 
 export type Cookie = {
   Cookie: string;

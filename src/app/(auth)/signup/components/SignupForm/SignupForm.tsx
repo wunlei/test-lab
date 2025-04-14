@@ -9,11 +9,12 @@ import AuthForm from "@/app/(auth)/components/Form";
 import FormFields from "@/app/(auth)/components/FormFields";
 import { FormFieldConfig } from "@/app/(auth)/components/FormFields/types";
 import Typography from "@/components/Typography";
-import { LoginBody, SignUpBody } from "@/lib/api/server/auth.types";
 import { fetchProxy } from "@/lib/api/fetchProxy";
+import { LoginBody, SignUpBody } from "@/lib/api/server/auth.types";
 import { APP_ROUTES } from "@/lib/app";
 import useFetch from "@/lib/hooks";
 import { signupSchema } from "@/lib/schemas";
+import { useAuth } from "@/providers/AuthProvider";
 
 type Inputs = {
   username: string;
@@ -61,6 +62,7 @@ export default function SignupForm() {
     resolver: zodResolver(signupSchema),
   });
   const router = useRouter();
+  const { setIsAdmin } = useAuth();
 
   const loginFetcher = useCallback(
     (body: LoginBody) => fetchProxy<LoginBody>("/login").post(body),
@@ -99,9 +101,12 @@ export default function SignupForm() {
 
   useEffect(() => {
     if (isSuccessLogin) {
+      const data = getValues();
+      setIsAdmin(data.is_admin);
+
       router.push(APP_ROUTES.tests.mask);
     }
-  }, [isSuccessLogin, router]);
+  }, [getValues, isSuccessLogin, router, setIsAdmin]);
 
   return (
     <AuthForm

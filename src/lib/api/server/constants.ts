@@ -11,4 +11,7 @@ export const ENDPOINTS = {
   tests: {
     mask: "/tests",
   },
+  currentUser: {
+    mask: "/users/current",
+  },
 };
