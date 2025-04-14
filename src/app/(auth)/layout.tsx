@@ -1,3 +1,4 @@
+import PageHeader from "@/components/PageHeader";
 import s from "./layout.module.scss";
 
 export default function Layout({
@@ -5,5 +6,10 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main className={s.main}>{children}</main>;
+  return (
+    <>
+      <PageHeader />
+      <main className={s.main}>{children}</main>
+    </>
+  );
 }
