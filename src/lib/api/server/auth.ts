@@ -1,10 +1,10 @@
-import { ENDPOINTS } from "@/lib/api/server/constants";
-import { SignUpBody, LoginBody } from "@/lib/api/server/auth.types";
+import { LoginBody, SignUpBody } from "@/lib/api/server/auth.types";
 import {
   BASE_URL,
-  serverOptionsJSON,
   serverOptions,
+  serverOptionsJSON,
 } from "@/lib/api/server/config";
+import { ENDPOINTS } from "@/lib/api/server/constants";
 
 export function serverSignUp(body: SignUpBody): Promise<Response> {
   const url = `${BASE_URL}${ENDPOINTS.signup.mask}`;

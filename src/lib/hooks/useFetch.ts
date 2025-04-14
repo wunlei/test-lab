@@ -1,21 +1,16 @@
 import { useCallback, useState } from "react";
+import fetchWrapper, { ResponseState } from "@/utils/fetchWrapper";
 
 type FetcherFunction<TParams, _TResponse> = (
   params: TParams,
 ) => Promise<Response>;
 
-type Status = "idle" | "loading" | "error" | "success";
-
-interface ResponseState<T> {
-  status: Status;
-  errorMsg: string | null;
-  data: T | null;
-}
+type ResponseStateType<T> = Omit<ResponseState<T>, "response">;
 
 function useFetch<TParams = void, TResponse = unknown>(
   fetcher: FetcherFunction<TParams, TResponse>,
 ) {
-  const [state, setState] = useState<ResponseState<TResponse>>({
+  const [state, setState] = useState<ResponseStateType<TResponse>>({
     status: "idle",
     errorMsg: null,
     data: null,
@@ -25,38 +20,15 @@ function useFetch<TParams = void, TResponse = unknown>(
     async (params: TParams): Promise<Response | null> => {
       setState({ status: "loading", errorMsg: null, data: null });
 
-      try {
-        const response = await fetcher(params);
-        const json = await response.json().catch(() => null);
+      const { data, errorMsg, response, status } =
+        await fetchWrapper<TResponse>(() => fetcher(params));
 
-        if (!response.ok) {
-          const errorMessage =
-            json?.error ||
-            response.statusText ||
-            `Request failed with status: ${response.status}`;
-
-          setState({
-            status: "error",
-            errorMsg: errorMessage || "An error occurred. Try again later",
-            data: json,
-          });
-        } else {
-          setState({ status: "success", errorMsg: null, data: json });
-        }
-
-        return response;
-      } catch (error) {
-        setState({
-          status: "error",
-          errorMsg:
-            error instanceof Error
-              ? error.message
-              : "Network error or unexpected failure",
-          data: null,
-        });
-
-        return null;
-      }
+      setState({
+        status,
+        errorMsg,
+        data,
+      });
+      return response;
     },
     [fetcher],
   );

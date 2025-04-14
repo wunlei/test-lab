@@ -1,5 +1,5 @@
 import CheckIcon from "@/assets/check.svg";
-import Label from "@/components/Label/";
+import Label from "@/components/Label";
 import { CheckboxProps } from "./types";
 import s from "./Checkbox.module.scss";
 
