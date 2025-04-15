@@ -93,20 +93,18 @@ export default function SignupForm() {
   };
 
   useEffect(() => {
+    const data = getValues();
+
     if (isSuccess) {
       const data = getValues();
       login(data);
     }
-  }, [getValues, isSuccess, login]);
 
-  useEffect(() => {
     if (isSuccessLogin) {
-      const data = getValues();
       setIsAdmin(data.is_admin);
-
       router.push(APP_ROUTES.tests.mask);
     }
-  }, [getValues, isSuccessLogin, router, setIsAdmin]);
+  }, [getValues, isSuccess, isSuccessLogin, login, router, setIsAdmin]);
 
   return (
     <AuthForm
