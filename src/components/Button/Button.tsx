@@ -4,6 +4,7 @@ import s from "./Button.module.scss";
 
 function Button({
   type = "button",
+  color,
   className,
   disabled,
   variant,
@@ -18,6 +19,7 @@ function Button({
       className={c(
         s.btn,
         variant && s[variant],
+        color && s[color],
         size && s[`size-${size}`],
         disabled && s.disabled,
         className,

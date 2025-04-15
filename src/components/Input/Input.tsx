@@ -7,15 +7,30 @@ function Input({
   required,
   invalid,
   className,
+  beforeSlot,
+  afterSlot,
+  disabled,
   ...props
 }: InputProps) {
   return (
-    <input
-      type={type}
-      className={c(s.input, invalid && s.invalid, className)}
-      required={required}
-      {...props}
-    />
+    <div
+      className={c(
+        s.container,
+        disabled && s.disabled,
+        invalid && s.invalid,
+        className,
+      )}
+    >
+      {beforeSlot}
+      <input
+        type={type}
+        className={c(s.input)}
+        required={required}
+        disabled={disabled}
+        {...props}
+      />
+      {afterSlot}
+    </div>
   );
 }
 

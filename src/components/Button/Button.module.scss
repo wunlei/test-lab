@@ -7,6 +7,7 @@
   border: var(--border-thin);
   border-radius: var(--radius-l);
   font-size: 1rem;
+  color: inherit;
   background-color: var(--color-slate-300);
   cursor: pointer;
   transition-property: color, background-color, border-color;
@@ -18,7 +19,6 @@
   }
 
   &:active {
-    color: var(--color-white);
     background-color: var(--color-slate-500);
   }
 
@@ -44,6 +44,9 @@
   &:hover {
     background-color: var(--color-gray-200);
   }
+  &:active {
+    background-color: var(--color-gray-400);
+  }
 }
 
 .success {
@@ -51,6 +54,9 @@
 
   &:hover {
     background-color: var(--color-green-500);
+  }
+  &:active {
+    background-color: var(--color-green-600);
   }
 }
 
@@ -60,12 +66,18 @@
   &:hover {
     background-color: var(--color-red-400);
   }
+  &:active {
+    background-color: var(--color-red-800);
+  }
 }
 
 .alert {
   background-color: var(--color-orange-100);
 
   &:hover {
+    background-color: var(--color-orange-500);
+  }
+  &:active {
     background-color: var(--color-orange-500);
   }
 }

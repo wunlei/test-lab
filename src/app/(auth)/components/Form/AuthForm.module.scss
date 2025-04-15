@@ -1,3 +1,5 @@
+@use "@/styles/mixins";
+
 .form {
   display: flex;
   flex-direction: column;
@@ -12,6 +14,10 @@
   border: var(--border-thin);
   border-radius: 50px;
   background-color: var(--color-bg-gray-50);
+
+  @include mixins.media("md") {
+    padding: 30px 30px;
+  }
 }
 
 .loader {
