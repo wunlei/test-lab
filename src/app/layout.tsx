@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import RootProvider from "@/providers/RootProvider";
 import "@/styles/normalize.scss";
 import "@/styles/index.scss";
 
@@ -20,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className}`}>{children}</body>
+      <body className={`${inter.className}`}>
+        <RootProvider>{children}</RootProvider>
+      </body>
     </html>
   );
 }
